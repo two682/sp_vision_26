@@ -1,0 +1,99 @@
+# ============================================================
+# 海康 MV-CS016-10UC 实机配置
+# 内参由用户标定得到（2026-11-16）
+# ============================================================
+
+enemy_color: "red"   # 测试用红板；打蓝方时改回 "blue"
+
+#####-----神经网络-----#####
+yolo_name: yolov5
+classify_model: assets/tiny_resnet.onnx
+yolo11_model_path: assets/yolo11.xml
+yolov8_model_path: assets/yolov8.xml
+yolov5_model_path: assets/yolov5.xml
+device: CPU
+min_confidence: 0.8
+use_traditional: true
+
+#####-----ROI-----#####
+roi:
+  x: 420
+  y: 50
+  width: 600
+  height: 600
+use_roi: false
+
+#####-----工业相机（海康 MV-CS016-10UC）-----#####
+camera_name: "hikrobot"
+exposure_ms: 30.0   # 临时：对焦用，亮了好对焦；调完改回 <=8 保证 120fps
+gain: 30.0
+vid_pid: "2bdf:0001"
+
+#####-----USB 相机参数（备用）-----#####
+image_width: 1440
+image_height: 1080
+fov_h: 60
+fov_v: 45
+usb_frame_rate: 120
+usb_exposure: 250
+usb_gamma: 160
+usb_gain: 10
+
+#####-----相机内参（标定结果）-----#####
+# 当前使用：2026-11-17 新标定 (RMS 0.047px)
+# K = [[2404.0488, 0, 715.4650],
+#      [0, 2403.6741, 540.7430],
+#      [0, 0, 1]]
+# dist = [k1, k2, p1, p2, k3]
+camera_matrix: [2404.048819, 0, 715.464987, 0, 2403.674096, 540.743026, 0, 0, 1]
+distort_coeffs: [-0.032271593414, 0.35905530601, 0.00011494981319, 0.00039870897997, -1.8532416696]
+
+#####-----云台/相机外参（未标定，先置单位阵）-----#####
+# 手眼标定完成后替换这三个
+R_gimbal2imubody: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+# 相机系(z前) -> 云台系(x前) 的旋转，用上游默认安装姿态近似
+# 标定手眼后应替换为实测值；平移 t 未知，暂置 0
+R_camera2gimbal: [0.046736929626455238, -0.055211941324114208, 0.99738021884550865, -0.99881598162461238, -0.016078770676278314, 0.0459141370909011, 0.013501639172863072, -0.99834518813322415, -0.055898041744621867]
+t_camera2gimbal: [0, 0, 0]
+
+#####-----通信-----#####
+can_interface: "can0"
+
+#####-----传统检测参数-----#####
+threshold: 150
+max_angle_error: 45
+min_lightbar_ratio: 1.5
+max_lightbar_ratio: 20
+min_lightbar_length: 8
+min_armor_ratio: 1
+max_armor_ratio: 5
+max_side_ratio: 1.5
+max_rectangular_error: 25
+
+#####-----跟踪-----#####
+min_detect_count: 5
+max_temp_lost_count: 15
+outpost_max_temp_lost_count: 100
+
+#####-----弹道 / 开火-----#####
+bullet_speed: 25.0
+gravity: 9.8
+fire_yaw_tol: 0.008
+fire_pitch_tol: 0.012
+max_fire_distance: 8.0
+min_hit_count: 3
+command_latency: 0.02
+lead_gain: 1.0
+decision_speed: 10.0
+comming_angle: 45.0
+leaving_angle: 45.0
+judge_distance: 8.0
+first_tolerance: 0.5
+second_tolerance: 0.3
+high_speed_delay_time: 0.0
+low_speed_delay_time: 0.0
+left_yaw_offset: 0.0
+right_yaw_offset: 0.0
+pitch_offset: 0.0
+yaw_offset: 0.0
+auto_fire: true

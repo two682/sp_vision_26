@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  能量机关（Buff）调试视角占位文件。
+  与 sp_vision_25 的 buff_layout.xml 对应：用 rqt 保存的视角，方便现场一键切换
+  到"能量机关 + 预测轨迹"的调试布局。当前框架未内置 rqt 插件，保留文件以便后续接入。
+-->
+<layout version="1.0">
+  <window>
+    <geometry>0h,0h,1200h,800h</geometry>
+    <title>sp_vision_26 / buff debug</title>
+  </window>
+</layout>

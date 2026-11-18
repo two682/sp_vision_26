@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  MPC（模型预测控制）调试视角占位文件。
+  与 sp_vision_25 的 mpc_layout.xml 对应：预留给后续的"预测控制 + 弹道可视化"布局。
+-->
+<layout version="1.0">
+  <window>
+    <geometry>0h,0h,1200h,800h</geometry>
+    <title>sp_vision_26 / mpc debug</title>
+  </window>
+</layout>
